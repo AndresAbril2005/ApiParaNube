@@ -10,7 +10,7 @@ async function registMail() {
             await registerMail(emailr, passr);
             await correoVerifi(emailr);
             alert('Registro exitoso');
-            window.location.href = "../index.html";
+            window.location.href = "index.html";
         } catch (error) {
             alert('Error al registrar: ' + error.message);
         }
@@ -25,7 +25,7 @@ googleRegistBtn.addEventListener('click', async () => {
     try {
         await signInWithGoogle();
         alert('Registro exitoso');
-        window.location.href = '../templates/pagina.html';
+        window.location.href = "index.html";
     } catch (error) {
         alert('Error al registrar con Google: ' + error.message);
     }
@@ -37,7 +37,7 @@ facebookRegistBtn.addEventListener('click', async () => {
     try {
         await popup_facebook();
         alert('Registro exitoso');
-        window.location.href = '../templates/pagina.html';
+        window.location.href = "index.html";
     } catch (error) {
         alert('Error al registrar con Facebook: ' + error.message);
     }
