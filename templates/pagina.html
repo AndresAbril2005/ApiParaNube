@@ -32,6 +32,14 @@
             cursor: pointer;
             border-radius: 5px;
         }
+        #deleteAcc {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
 
         main {
             padding: 20px;
@@ -52,7 +60,17 @@
     <header>
         <h1>Catálogo de Animales</h1>
        
-        <input type="button" value="logout" id="logout">
+        <div aria-orientation="horizontal">
+            <input type="button" value="logout" id="logout">
+            <input type="button" value="Borrar Cuenta" id="deleteAcc">
+        </div>
+        <div>
+            <div id="confirmar_delete" style="display: none;">
+                <p>¿Está seguro de que desea eliminar su cuenta?</p>
+                <button id="bntBorrarCuenta">Sí, eliminar cuenta</button>
+                <button onclick="noBorrar()">Cancelar</button>
+            </div>
+        </div>
     </header>
     <main id="mainContent">
       
@@ -92,6 +110,15 @@
                 window.location.href = '../index.html';
             });
         });
+
+        function noBorrar() {
+            document.getElementById("confirmar_delete").style.display = "none";
+        }
+
+        document.getElementById("deleteAcc").addEventListener("click", async function (event) {
+            document.getElementById("confirmar_delete").style.display = "block";
+        });
     </script>
+    <script type="module" src="../controllers/pagina.js"></script>
 </body>
 </html>

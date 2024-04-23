@@ -1,4 +1,4 @@
-import { loginvalidation, signInWithGoogle } from "../controllers/global.js";
+import { loginvalidation, signInWithGoogle, popup_facebook } from "../controllers/global.js";
 
 const loginin = document.getElementById("loginbtn");
 
@@ -29,6 +29,19 @@ googleLoginBtn.addEventListener('click', async () => {
         const result = await signInWithGoogle();
         const user = result.user;
         alert('Authentication successful: ' + user.email); 
+        window.location.href = '../templates/pagina.html';
+    } catch (error) {
+        alert('Error: authentication unsuccessful');
+        console.log('Session not validated');
+    }
+});
+
+const facebookLoginBtn = document.getElementById("facebookLoginBtn");
+
+facebookLoginBtn.addEventListener('click', async () => {
+    try {
+        const result = await popup_facebook();
+        alert('Authentication successful: '); 
         window.location.href = '../templates/pagina.html';
     } catch (error) {
         alert('Error: authentication unsuccessful');

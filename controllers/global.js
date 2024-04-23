@@ -1,11 +1,16 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js';
 import {
   getAuth,
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-  signOut,
-  GoogleAuthProvider,
-  signInWithPopup
+    signInWithEmailAndPassword,
+    signOut,
+    onAuthStateChanged,
+    signInWithPopup,
+    GoogleAuthProvider,
+    createUserWithEmailAndPassword,
+    sendSignInLinkToEmail,
+    FacebookAuthProvider,
+    sendPasswordResetEmail,
+    deleteUser
 } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js';
 
 const firebaseConfig = {
@@ -21,6 +26,8 @@ const firebaseConfig = {
 // Inicializar Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+
+const user = auth.currentUser;
 
 const provider = new GoogleAuthProvider();
 
@@ -44,3 +51,28 @@ export function userstate() {
     }
   });
 }
+
+const providerFacebook = new FacebookAuthProvider();
+// Iniciando con Facebook
+export const popup_facebook = () =>
+    signInWithPopup(auth, providerFacebook)
+
+//enviar correo verificacion registro
+const actionCodeSettings = {
+  url: '',
+  handleCodeInApp: true
+}
+export const correoVerifi = (email) =>
+  sendSignInLinkToEmail(auth, email, actionCodeSettings)
+
+//regist
+export const registerMail = (email, password) =>
+    createUserWithEmailAndPassword(auth, email, password)
+
+//recovery
+export const recovery = (email) =>
+    sendPasswordResetEmail(auth, email)
+
+//borrar
+export const borrar_account = () =>
+    deleteUser(user)
