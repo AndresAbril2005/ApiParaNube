@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Animales</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+       
+        #logout {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+       
+        .animal {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Catálogo de Animales</h1>
+       
+        <input type="button" value="logout" id="logout">
+    </header>
+    <main id="mainContent">
+      
+    </main>
+
+    <script>
+       
+        const animales = [
+            { nombre: "Perro", tipo: "Mamífero" },
+            { nombre: "Gato", tipo: "Mamífero" },
+            { nombre: "Pez", tipo: "Pez" },
+            { nombre: "Ave", tipo: "Ave" },
+            { nombre: "Serpiente", tipo: "Reptil" }
+        ];
+
+       
+        function mostrarCatalogo() {
+            const mainContent = document.getElementById('mainContent');
+            mainContent.innerHTML = ''; 
+
+            animales.forEach(animal => {
+                const animalElement = document.createElement('div');
+                animalElement.classList.add('animal');
+                animalElement.innerHTML = `<h2>${animal.nombre}</h2><p>Tipo: ${animal.tipo}</p>`;
+                mainContent.appendChild(animalElement);
+            });
+        }
+
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            mostrarCatalogo();
+
+  
+            const btnLogout = document.getElementById('logout');
+            btnLogout.addEventListener('click', () => {
+                
+                window.location.href = '../index.html';
+            });
+        });
+    </script>
+</body>
+</html>
