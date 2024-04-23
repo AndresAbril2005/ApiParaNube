@@ -20,7 +20,7 @@ async function recoveryAcc() {
 
         .then((validation) => {
             alert("Correo de recuperación enviado a " + email + " entre al link del correo para reestablecer contraseña")
-            window.location.href = "index.html"
+            window.location.href = "../index.html"
         })
         .catch((error) => {
 
