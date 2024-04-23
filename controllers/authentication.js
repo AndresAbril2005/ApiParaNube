@@ -1,4 +1,4 @@
-import { loginvalidation, signInWithGoogle, popup_facebook } from "../controllers/global.js";
+import { loginvalidation, signInWithGoogle, popup_facebook } from "../controllers/global.js"
 
 const loginin = document.getElementById("loginbtn");
 
