@@ -29,7 +29,7 @@ googleLoginBtn.addEventListener('click', async () => {
         const result = await signInWithGoogle();
         const user = result.user;
         alert('Authentication successful: ' + user.email); 
-        window.location.href = 'templates/pagina.html';
+        window.location.href = '../templates/pagina.html';
     } catch (error) {
         alert('Error: authentication unsuccessful');
         console.log('Session not validated');
