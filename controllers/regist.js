@@ -27,7 +27,7 @@ googleRegistBtn.addEventListener('click', async () => {
     try {
         await signInWithGoogle();
         const user = result.user;
-        alert('Authentication successful: ' + user.email); 
+        alert('Authentication successful: ' + user.email);
         window.location.href = '../templates/pagina.html';
     } catch (error) {
         alert('Error: authentication unsuccessful');
@@ -40,7 +40,7 @@ const facebookRegistBtn = document.getElementById("facebookRegistBtn");
 facebookRegistBtn.addEventListener('click', async () => {
     try {
         await popup_facebook();
-        alert('Authentication successful: '); 
+        alert('Authentication successful: ');
         window.location.href = '../templates/pagina.html';
     } catch (error) {
         alert('Error: authentication unsuccessful');

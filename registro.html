@@ -14,27 +14,24 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
         integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
         crossorigin="anonymous"></script>
-
+    <script type="module" src="/controllers/regist.js"></script>
 </head>
 
 <body>
-
     <div id="registrarme">
         <h2>Regístrate</h2>
         <input type="text" placeholder="Correo" id="mail" required>
         <input type="text" placeholder="Confirma Correo" id="mailc" required>
-        <input type="text" placeholder="Tu Contraseña" id="pass" required>
+        <input type="password" placeholder="Tu Contraseña" id="pass" required>
         <input type="password" placeholder="Confirma contraseña" id="passc" required>
-        <div id="err" style="color: rgb(255, 255, 255);"></div>
-        <button id="btnRegist">Registrarse</button>
+        <div id="err" style="color: rgb(0, 0, 0);"></div>
+        <button type="submit" id="btnRegist">Registrarse</button>
         <br>
         <br>
-        <button class="btn btn-primary" type="button" id="googleRegistBtn">Registrate sesión con Google</button>
+        <button type="button" class="btn btn-primary">Registrate sesión con Google</button>
         <br>
         <br>
-        <button class="btn btn-primary" type="button" id="facebookRegistBtn">Registrate sesión con
-            Facebook</button>
-
+        <button type="button" class="btn btn-primary">Registrate sesión con Facebook</button>
     </div>
 
     <script>
@@ -46,7 +43,7 @@
 
             var error = "";
             var errorText = document.getElementById("err");
-            errorText = "";
+            errorText.innerHTML = "";
 
             if (em === "" || emConfirm === "" || pass === "" || passConfirm === "") {
                 error += "Los campos son obligatorios";
@@ -63,9 +60,10 @@
             else if (pass !== passConfirm) {
                 error += "Las contraseñas no coinciden";
             }
-            else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+])[A-Za-z!@#$%^&*()_+]{8,}/.test(passConfirm)) {
+            else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+])[A-Za-z!@#$%^&*()_+]/.test(pass)) {
                 error += "La contraseña debe tener una mayúscula, una minúscula y un caracter especial.";
             }
+
             if (error !== "") {
                 errorText.innerHTML = error;
                 event.preventDefault();
@@ -74,7 +72,7 @@
             }
         });
     </script>
-    <script type="module" src="/controllers/regist.js"></script>
+
 </body>
 
 </html>
