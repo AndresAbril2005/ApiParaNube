@@ -1,37 +1,33 @@
-import { popup_facebook, loginvalidation, signInWithGoogle } from "../controllers/global.js";
+import { popup_facebook, loginvalidation, signInWithGoogle, correoVerifi } from "../controllers/global.js";
 
-
-const registEmails = document.getElementById('btnRegist')
+const registEmails = document.getElementById('btnRegist');
 
 async function registMail() {
-    if (window.pase) {
-        const validar = loginvalidation()
-        const verificar = await validar
-
-            .then((verificar) => {
-                alert('sesion cerrada')
-                window.location.href = "../index.html"
-            }).catch((error) => {
-                alert('Sesion no cerrada')
-            });
+    if (window.pase === true) {
+        const emailr = document.getElementById("mail").value;
+        const passr = document.getElementById("pass").value;
+        try {
+            await loginvalidation(emailr, passr);
+            await correoVerifi(emailr);
+            alert('Registro exitoso');
+            window.location.href = "../index.html";
+        } catch (error) {
+            alert('Error al registrar: ' + error.message);
+        }
     }
 }
 
-window.addEventListener('DOMContentLoaded', async () => {
-    registEmails.addEventListener('click', registMail)
-})
+registEmails.addEventListener('click', registMail);
 
 const googleRegistBtn = document.getElementById("googleRegistBtn");
 
 googleRegistBtn.addEventListener('click', async () => {
     try {
         await signInWithGoogle();
-        const user = result.user;
-        alert('Authentication successful: ' + user.email);
+        alert('Registro exitoso');
         window.location.href = '../templates/pagina.html';
     } catch (error) {
-        alert('Error: authentication unsuccessful');
-        console.log('Session not validated');
+        alert('Error al registrar con Google: ' + error.message);
     }
 });
 
@@ -40,10 +36,9 @@ const facebookRegistBtn = document.getElementById("facebookRegistBtn");
 facebookRegistBtn.addEventListener('click', async () => {
     try {
         await popup_facebook();
-        alert('Authentication successful: ');
+        alert('Registro exitoso');
         window.location.href = '../templates/pagina.html';
     } catch (error) {
-        alert('Error: authentication unsuccessful');
-        console.log('Session not validated');
+        alert('Error al registrar con Facebook: ' + error.message);
     }
 });

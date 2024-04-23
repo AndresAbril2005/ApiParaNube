@@ -1,16 +1,16 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js';
 import {
   getAuth,
-    signInWithEmailAndPassword,
-    signOut,
-    onAuthStateChanged,
-    signInWithPopup,
-    GoogleAuthProvider,
-    createUserWithEmailAndPassword,
-    sendSignInLinkToEmail,
-    FacebookAuthProvider,
-    sendPasswordResetEmail,
-    deleteUser
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
+  signInWithPopup,
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+  sendSignInLinkToEmail,
+  FacebookAuthProvider,
+  sendPasswordResetEmail,
+  deleteUser
 } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js';
 
 const firebaseConfig = {
@@ -55,7 +55,7 @@ export function userstate() {
 const providerFacebook = new FacebookAuthProvider();
 // Iniciando con Facebook
 export const popup_facebook = () =>
-    signInWithPopup(auth, providerFacebook)
+  signInWithPopup(auth, providerFacebook)
 
 //enviar correo verificacion registro
 const actionCodeSettings = {
@@ -64,15 +64,21 @@ const actionCodeSettings = {
 }
 export const correoVerifi = (email) =>
   sendSignInLinkToEmail(auth, email, actionCodeSettings)
+    .then(() => {
+      alert("Correo de verificación enviado correctamente.")
+    })
+    .catch((error) => {
+      alert("Error al enviar el correo de verificación: " + error)
+    })
 
 //regist
 export const registerMail = (email, password) =>
-    createUserWithEmailAndPassword(auth, email, password)
+  createUserWithEmailAndPassword(auth, email, password)
 
 //recovery
 export const recovery = (email) =>
-    sendPasswordResetEmail(auth, email)
+  sendPasswordResetEmail(auth, email)
 
 //borrar
 export const borrar_account = () =>
-    deleteUser(user)
+  deleteUser(user)
