@@ -1,4 +1,4 @@
-import { popup_facebook, registerMail, signInWithGoogle, correoVerifi } from "../controllers/global.js";
+import { popup_facebook, registerMail, signInWithGoogle, correoVerifi } from "controllers/global.js";
 
 const registEmails = document.getElementById('btnRegist');
 
