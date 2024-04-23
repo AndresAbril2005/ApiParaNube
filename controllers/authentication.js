@@ -42,7 +42,7 @@ facebookLoginBtn.addEventListener('click', async () => {
     try {
         const result = await popup_facebook();
         alert('Authentication successful: '); 
-        window.location.href = 'templates/pagina.html';
+        window.location.href = '/templates/pagina.html';
     } catch (error) {
         alert('Error: authentication unsuccessful');
         console.log('Session not validated');
