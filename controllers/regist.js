@@ -1,4 +1,4 @@
-import { popup_facebook, loginvalidation, signInWithGoogle, correoVerifi } from "../controllers/global.js";
+import { popup_facebook, registerMail, signInWithGoogle, correoVerifi } from "../controllers/global.js";
 
 const registEmails = document.getElementById('btnRegist');
 
@@ -7,7 +7,7 @@ async function registMail() {
         const emailr = document.getElementById("mail").value;
         const passr = document.getElementById("pass").value;
         try {
-            await loginvalidation(emailr, passr);
+            await registerMail(emailr, passr);
             await correoVerifi(emailr);
             alert('Registro exitoso');
             window.location.href = "../index.html";

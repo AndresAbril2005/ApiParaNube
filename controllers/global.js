@@ -59,7 +59,7 @@ export const popup_facebook = () =>
 
 //enviar correo verificacion registro
 const actionCodeSettings = {
-  url: '',
+  url: 'https://andresabril2005.github.io/ApiClaseWeb/index.html',
   handleCodeInApp: true
 }
 export const correoVerifi = (email) =>
