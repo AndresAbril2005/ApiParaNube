@@ -23,9 +23,19 @@ async function recoveryAcc() {
             window.location.href = "../index.html"
         })
         .catch((error) => {
+            switch (error.code) {
+                case "auth/invalid-email":
+                    alert("El correo electrónico proporcionado no es válido.");
+                    break;
+                case "auth/user-not-found":
+                    alert("No hay ningún usuario registrado con este correo electrónico.");
+                    break;
+                default:
+                    console.error("Error al enviar el correo de recuperación:", error);
+                    alert("Ocurrió un error al enviar el correo de recuperación. Por favor, inténtalo de nuevo más tarde.");
+                    break;
 
-            console.error("Error al enviar el correo de recuperación:", error);
-            alert("Ocurrió un error al enviar el correo de recuperación. Por favor, inténtalo de nuevo más tarde.");
+            }
         })
 
 }
