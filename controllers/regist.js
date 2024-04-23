@@ -1,19 +1,19 @@
-import { registerMail, correoVerifi, signInWithGoogle, popup_facebook } from "../controllers/global.js"
+import { popup_facebook, registerMail, signInWithGoogle, correoVerifi } from "../controllers/global.js"
 
 const registEmails = document.getElementById('btnRegist');
 
 async function registMail() {
-    try {
-        if (window.pase === true) {
-            const email = document.getElementById("mail").value;
-            const password = document.getElementById("pass").value;
-            const user = await registerMail(email, password);
-            await correoVerifi(email);
-            alert('Registro exitoso. Por favor, verifica tu correo electrónico.');
+    if (window.pase === true) {
+        const emailr = document.getElementById("mail").value;
+        const passr = document.getElementById("pass").value;
+        try {
+            await registerMail(emailr, passr);
+            await correoVerifi(emailr);
+            alert('Registro exitoso');
             window.location.href = "../index.html";
+        } catch (error) {
+            alert('Error al registrar: ' + error.message);
         }
-    } catch (error) {
-        alert('Error al registrar: ' + error.message);
     }
 }
 
