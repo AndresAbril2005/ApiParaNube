@@ -14,13 +14,13 @@ import {
 } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAtc-f5N6Onj67YKjj-YTnqIWjHdaF7nlk",
-  authDomain: "web2024-9794a.firebaseapp.com",
-  projectId: "web2024-9794a",
-  storageBucket: "web2024-9794a.appspot.com",
-  messagingSenderId: "264039668151",
-  appId: "1:264039668151:web:1eb0e1b53779bf30ecf032",
-  measurementId: "G-XSNSQ8FFLW"
+  apiKey: "AIzaSyDMLuixGvkU0EhI2RsUXYkfmEwWZwCktt8",
+  authDomain: "apiwebabril.firebaseapp.com",
+  projectId: "apiwebabril",
+  storageBucket: "apiwebabril.appspot.com",
+  messagingSenderId: "715996924225",
+  appId: "1:715996924225:web:68b3f3400d259ce693b9c0",
+  measurementId: "G-7T1NTRK3JX"
 };
 
 // Inicializar Firebase
