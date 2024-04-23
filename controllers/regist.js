@@ -25,7 +25,7 @@ googleRegistBtn.addEventListener('click', async () => {
     try {
         await signInWithGoogle();
         alert('Registro exitoso');
-        window.location.href = "index.html";
+        window.location.href = "templates/pagina.html";
     } catch (error) {
         alert('Error al registrar con Google: ' + error.message);
     }
@@ -37,7 +37,7 @@ facebookRegistBtn.addEventListener('click', async () => {
     try {
         await popup_facebook();
         alert('Registro exitoso');
-        window.location.href = "index.html";
+        window.location.href = "templates/pagina.html";
     } catch (error) {
         alert('Error al registrar con Facebook: ' + error.message);
     }

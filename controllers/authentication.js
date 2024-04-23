@@ -11,7 +11,7 @@ async function validar(){
 
     if (validation != null) {
         alert('Authentication successful ' + email); 
-        window.location.href = '../templates/pagina.html';
+        window.location.href = 'templates/pagina.html';
     } else {
         alert('Error: authentication unsuccessful'); 
         console.log('Session ' + email + ' not validated'); 
@@ -29,7 +29,7 @@ googleLoginBtn.addEventListener('click', async () => {
         const result = await signInWithGoogle();
         const user = result.user;
         alert('Authentication successful: ' + user.email); 
-        window.location.href = '../templates/pagina.html';
+        window.location.href = 'templates/pagina.html';
     } catch (error) {
         alert('Error: authentication unsuccessful');
         console.log('Session not validated');
@@ -42,7 +42,7 @@ facebookLoginBtn.addEventListener('click', async () => {
     try {
         const result = await popup_facebook();
         alert('Authentication successful: '); 
-        window.location.href = '../templates/pagina.html';
+        window.location.href = 'templates/pagina.html';
     } catch (error) {
         alert('Error: authentication unsuccessful');
         console.log('Session not validated');
