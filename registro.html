@@ -25,17 +25,17 @@
         <input type="password" placeholder="Tu Contraseña" id="pass" required>
         <input type="password" placeholder="Confirma contraseña" id="passc" required>
         <div id="err" style="color: rgb(0, 0, 0);"></div>
-        <button type="submit" id="googleRegistBtn">Registrarse</button>
+        <button type="submit" id="btnRegist">Registrarse</button>
         <br>
         <br>
-        <button type="button" class="btn btn-primary">Registrate sesión con Google</button>
+        <button id="googleRegistBtn" type="button" class="btn btn-primary">Registrate sesión con Google</button>
         <br>
         <br>
-        <button type="button" class="btn btn-primary">Registrate sesión con Facebook</button>
+        <button id="facebookRegistBtn" type="button" class="btn btn-primary">Registrate sesión con Facebook</button>
     </div>
 
     <script>
-        document.getElementById("googleRegistBtn").addEventListener("click", async function (event) {
+        document.getElementById("btnRegist").addEventListener("click", async function (event) {
             var em = document.getElementById("mail").value;
             var emConfirm = document.getElementById("mailc").value;
             var pass = document.getElementById("pass").value;
