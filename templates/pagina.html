@@ -23,29 +23,20 @@
             margin: 0;
         }
 
-       
-        #logout {
+        #logout, #deleteAcc {
             background-color: #007bff;
             color: #fff;
             border: none;
             padding: 10px 20px;
             cursor: pointer;
             border-radius: 5px;
-        }
-        #deleteAcc {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            border-radius: 5px;
+            margin-bottom: 10px;
         }
 
         main {
             padding: 20px;
         }
 
-       
         .animal {
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -59,9 +50,8 @@
 <body>
     <header>
         <h1>Catálogo de Animales</h1>
-       
         <div aria-orientation="horizontal">
-            <input type="button" value="logout" id="logout">
+            <input type="button" value="Cerrar Sesion" id="logout">
             <input type="button" value="Borrar Cuenta" id="deleteAcc">
         </div>
         <div>
@@ -72,12 +62,9 @@
             </div>
         </div>
     </header>
-    <main id="mainContent">
-      
-    </main>
+    <main id="mainContent"></main>
 
     <script>
-       
         const animales = [
             { nombre: "Perro", tipo: "Mamífero" },
             { nombre: "Gato", tipo: "Mamífero" },
@@ -86,10 +73,9 @@
             { nombre: "Serpiente", tipo: "Reptil" }
         ];
 
-       
         function mostrarCatalogo() {
             const mainContent = document.getElementById('mainContent');
-            mainContent.innerHTML = ''; 
+            mainContent.innerHTML = '';
 
             animales.forEach(animal => {
                 const animalElement = document.createElement('div');
@@ -99,14 +85,11 @@
             });
         }
 
-        
         document.addEventListener('DOMContentLoaded', () => {
             mostrarCatalogo();
 
-  
             const btnLogout = document.getElementById('logout');
             btnLogout.addEventListener('click', () => {
-                
                 window.location.href = '../index.html';
             });
         });
@@ -119,6 +102,5 @@
             document.getElementById("confirmar_delete").style.display = "block";
         });
     </script>
-    <script type="module" src="../controllers/pagina.js"></script>
 </body>
 </html>
