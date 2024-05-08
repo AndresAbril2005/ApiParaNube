@@ -1,35 +1,47 @@
-import { userstate, logout, borrar_account } from "../controllers/global.js";
+import { userstate, logout, deleteAccount, displayUserData } from "./global.js";
+import { auth } from './global.js';
 
 userstate()
 
-const cerrar = document.getElementById('logout')
+const cerrar=document.getElementById('logout')
 
-async function sesion() {
+async function sesion(){
     const validar = logout()
     const verificar = await validar
 
-        .then((verificar) => {
-            alert('sesion cerrada')
-            window.location.href = "../index.html"
-        }).catch((error) => {
-            alert('Sesion no cerrada')
-        });
+    .then((verificar) => {
+        alert ('sesion cerrada')
+        window.location.href="../index.html"
+    }).catch((error) => {
+        alert('Sesion no cerrada')
+    });
 }
 
-window.addEventListener('DOMContentLoaded', async () => {
-    cerrar.addEventListener('click', sesion)
+window.addEventListener('DOMContentLoaded', async()=>{
+    cerrar.addEventListener('click',sesion)
+    await displayUserData();
 })
 
-const btnBorrarCuenta = document.getElementById("bntBorrarCuenta")
 
-btnBorrarCuenta.addEventListener('click', async () => {
-    try {
-        await borrar_account();
-        alert('Tu cuenta se borro correctamente.');
-        window.location.href = '../index.html';
-    } catch (error) {
-        alert('Error: delete unsuccessful');
-    }
-});
+
+const deleteAccountBtn = document.getElementById('deleteAccountBtn');
+const deleteAccountForm = document.getElementById('deleteAccountForm');
+const emailInput = document.getElementById('email');
+const passwordInput = document.getElementById('password');
+
+if (deleteAccountBtn) {
+  deleteAccountBtn.addEventListener('click', () => {
+    emailInput.value = auth.currentUser.email;
+  });
+}
+
+if (deleteAccountForm) {
+  deleteAccountForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const email = emailInput.value;
+    const password = passwordInput.value;
+    await deleteAccount(email, password);
+  });
+}
 
 
