@@ -1,17 +1,20 @@
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js';
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js'
+import { setDoc, doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js';
 import {
   getAuth,
   signInWithEmailAndPassword,
-  signOut,
-  onAuthStateChanged,
-  signInWithPopup,
-  GoogleAuthProvider,
   createUserWithEmailAndPassword,
-  sendSignInLinkToEmail,
+  onAuthStateChanged,
+  signOut,
+  sendEmailVerification,
+  GoogleAuthProvider,
   FacebookAuthProvider,
   sendPasswordResetEmail,
-  deleteUser
+  reauthenticateWithCredential,
+  EmailAuthProvider,
+  signInWithPopup
 } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js';
+import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDMLuixGvkU0EhI2RsUXYkfmEwWZwCktt8",
@@ -23,61 +26,107 @@ const firebaseConfig = {
   measurementId: "G-7T1NTRK3JX"
 };
 
-// Inicializar Firebase
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const user = auth.currentUser;
+const db = getFirestore(app);
+
+export { auth };
+
+export const register = async (email, password) => {
+  const result = await createUserWithEmailAndPassword(auth, email, password);
+  const user = result.user;
+  if (user) {
+    await sendEmailVerification(user);
+    const cedula = document.getElementById("cedula").value;
+    const nombre = document.getElementById("nombre").value;
+    const fechaNacimiento = document.getElementById("fechaNacimiento").value;
+    const direccion = document.getElementById("direccion").value;
+    const telefono = document.getElementById("telefono").value;
+    await saveUserData(cedula, nombre, fechaNacimiento, direccion, telefono, email);
+  }
+  return result;
+};
 
 const provider = new GoogleAuthProvider();
 
 export const signInWithGoogle = () => signInWithPopup(auth, provider);
 
-// Método de inicio de sesión con correo y contraseña
-export const loginvalidation = (email, password) =>
-  signInWithEmailAndPassword(auth, email, password);
+const facebookProvider = new FacebookAuthProvider();
 
-// Método de cierre de sesión
-export const logout = () => signOut(auth);
+export const signInWithFacebook = () => signInWithPopup(auth, facebookProvider);
 
-// Estado del usuario
+//metodo de inicio de sesión
+export const loginvalidation=(email,password)=>
+  signInWithEmailAndPassword(auth, email, password)
+
+export const logout=()=>signOut(auth);
+
 export function userstate() {
-  onAuthStateChanged(auth, (user) => {
+  onAuthStateChanged(auth, async (user) => {
     if (user) {
       const uid = user.uid;
-      console.log(uid);
+      console.log(uid)
+      await displayUserData(); // Ahora displayUserData está definida en este módulo
     } else {
-      window.location.href = "../index.html";
+      window.location.href="../index.html"
     }
   });
 }
 
-const providerFacebook = new FacebookAuthProvider();
-// Iniciando con Facebook
-export const popup_facebook = () =>
-  signInWithPopup(auth, providerFacebook)
+export const sendResetEmail = async (email) => {
+  await sendPasswordResetEmail(auth, email);
+};
+  
 
-//enviar correo verificacion registro
-const actionCodeSettings = {
-  url: 'https://andresabril2005.github.io/ApiParaNube/index.html',
-  handleCodeInApp: true
-}
-export const correoVerifi = (email) =>
-  sendSignInLinkToEmail(auth, email, actionCodeSettings)
-    .then(() => {
-      alert("Correo de verificación enviado correctamente.")
-    })
-    .catch((error) => {
-      alert("Error al enviar el correo de verificación: " + error)
-    })
+export const deleteAccount = async (email, password) => {
+  const user = auth.currentUser;
+  const credential = EmailAuthProvider.credential(email, password);
 
-//regist
-export const registerMail = (email, password) =>
-  createUserWithEmailAndPassword(auth, email, password)
+  try {
+    await reauthenticateWithCredential(user, credential);
+    await user.delete();
+    alert('Cuenta eliminada exitosamente');
+  } catch (error) {
+    alert('Error al eliminar la cuenta');
+    console.log('Error al eliminar la cuenta: ', error);
+  }
+};
 
-//recovery
-export const recovery = (email) =>
-  sendPasswordResetEmail(auth, email)
+export const saveUserData = async (cedula, nombre, fechaNacimiento, direccion, telefono, email) => {
+  const user = auth.currentUser;
+  if (user) {
+    const uid = user.uid;
+    await setDoc(doc(db, 'datosUsuario', uid), {
+      cedula,
+      nombre,
+      fechaNacimiento,
+      direccion,
+      telefono,
+    });
+  } else {
+    console.log('No user is signed in.');
+  }
+};
 
-//borrar
-export const borrar_account = () =>
-  deleteUser(user)
+export const displayUserData = async () => {
+  const user = auth.currentUser;
+  if (user) {
+    const userDocRef = doc(db, 'datosUsuario', user.uid);
+    const userDocSnap = await getDoc(userDocRef);
+
+    if (userDocSnap.exists()) {
+      const userData = userDocSnap.data();
+      // Now you can access the user data and display it in the HTML
+      document.getElementById('cedula').value = userData.cedula;
+      document.getElementById('nombre').value = userData.nombre;
+      document.getElementById('fechaNacimiento').value = userData.fechaNacimiento;
+      document.getElementById('direccion').value = userData.direccion;
+      document.getElementById('telefono').value = userData.telefono;
+    } else {
+      console.log('User document does not exist.');
+    }
+  } else {
+    console.log('User is not signed in.');
+  }
+};
