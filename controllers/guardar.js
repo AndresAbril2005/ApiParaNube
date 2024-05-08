@@ -1,14 +1,23 @@
-import { db } from './configuracion.js';
+import { app } from "./global.js";
+import {
+  getFirestore,
+  collection,
+  doc,
+  addDoc,
+  setDoc,
+  getDoc,
+} from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
-function guardar(){
-db.collection("usuario").add({
-    nombre:document.getElementById("nombre").value,
-    telefono: document.getElementById("telefono").value
-})
-.then((docRef) => {
-   alert("registro exitoso")
-})
-.catch((error) => {
-  alert ("registro fallido")
-});
-}
+const db = getFirestore(app);
+export const addData = async (id, cc, fullName, address, phone, email, bornDate) =>
+  await setDoc(doc(collection(db, "users"), id), {
+    id: id,
+    cc: cc,
+    fullName: fullName, 
+    address: address, 
+    phone: phone, 
+    email: email,
+    bornDate: bornDate
+  });
+
+export const getData = async (id) => await getDoc(doc(db, "users", id));
